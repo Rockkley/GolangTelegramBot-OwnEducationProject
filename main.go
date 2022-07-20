@@ -53,22 +53,13 @@ func main() {
 				log.Fatal(err)
 			}
 		}
-		if update.Message != nil { // If we got a message
-			//log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+		if update.Message != nil {			  
+    
+    			m := map[int]string{0:"🌖 Good night, ", 1:"🌅 Good morning, ",
+                        		    2:"🌞 Good day, ", 3:"🌃 Good evening, "}
 
-			switch {
-			case 0 <= hour && hour < 6:
-				greeting = "🌖 Good night, "
-			case 6 <= hour && hour < 12:
-				greeting = "🌅 Good morning, "
-			case 12 <= hour && hour < 17:
-				greeting = "🌞 Good day, "
-			case 17 <= hour && hour <= 23:
-				greeting = "🌃 Good evening, "
-			default:
-				greeting = strconv.Itoa(hour)
-			}
-
+    			greeting = (m[hour/6])
+	
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, greeting+update.Message.From.FirstName+welcomeMsg)
 			bot.Send(msg)
 
